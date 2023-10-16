@@ -25,7 +25,17 @@ const userByMail = async (email) => {
   }
 };
 
+const updateUser = async (user, id) => {
+  try {
+    const updated =await Users.update(user, { where: { id } });
+    return { updated: updated };
+  } catch (error) {
+    return { error: { message: "Something went wrong, try again", code: 500 } };
+  }
+};
+
 module.exports = {
   createUser,
   userByMail,
+  updateUser
 };

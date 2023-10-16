@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const sequelize = require("./src/config/db");
 const userRoutes = require("./src/routes/userRoutes");
+const contentRoutes = require("./src/routes/contentRoutes");
 
 app.use(express.json());
 app.use(cors());
@@ -11,6 +12,7 @@ app.use(cors());
 //   return res.send({ message: "Server is listening at localhost:5001" });
 // });
 app.use("/relations", userRoutes);
+app.use("/relations", contentRoutes);
 
 sequelize
   .sync()

@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const passwordVerification = async (password, userPassword) => {
   try {
@@ -14,8 +14,11 @@ const passwordVerification = async (password, userPassword) => {
 
 const signInToken = async (email, code) => {
   try {
-    console.log(email, code, "user code here");
-    console.log("sign in token is here");
+    const token = jwt.sign({ email, code }, "relations_auth_key", {
+      expiresIn: "300s",
+    });
+    if (!token) return { error: { message: "unauthorised", code: 403 } };
+    return { token };
   } catch (error) {
     return { error: { message: "Error creating token" }, code: 500 };
   }
